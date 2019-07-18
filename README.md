@@ -43,6 +43,7 @@ require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
 
 If you encounter errors with the above code use a check like this to return clean errors to help diagnose the problem.
 
+// This is your code and it is not work.
 ```php
 if ( ! file_exists( get_template_directory() . '/class-wp-bootstrap-navwalker.php' ) ) {
 	// file does not exist... return an error.
@@ -52,6 +53,23 @@ if ( ! file_exists( get_template_directory() . '/class-wp-bootstrap-navwalker.ph
 	require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
 }
 ```
+```
+// This is my code Require class-wp-bootstrap-navwalker
+if ( !file_exists( get_template_directory() . '/assets/bootstrap4nav/class-wp-bootstrap-navwalker.php' ) ) {
+	// file does not exist, return an error.
+	function our_error() {
+        return new WP_Error( 'broke', __( 'class-wp-bootstrap-navwalker.php file may be missing in /assets/bootstrap4nav/', 'albadrbakelser' ) );
+    }
+	$return = our_error();
+    if( is_wp_error( $return ) ) {
+        echo $return->get_error_message();
+    }
+} else {
+	// file exists, require it.
+	require_once get_template_directory() . '/assets/bootstrap4nav/class-wp-bootstrap-navwalker.php';
+}
+```
+
 You will also need to declare a new menu in your `functions.php` file if one doesn't already exist.
 
 ```php
